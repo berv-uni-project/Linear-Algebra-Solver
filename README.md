@@ -1,5 +1,7 @@
 This software version 0.1
 
+![Travis CI](https://travis-ci.org/berviantoleo/Linear-Algebra-Solver.svg?branch=master)
+
 # Linear System and Interpolation
 
 ## Linear Algebra Solver
