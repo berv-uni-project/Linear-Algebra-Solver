@@ -13,20 +13,20 @@ public class Point {
     }
 
     // Selector
-    public double GetX() {
+    public double getX() {
         return this.x;
     }
 
-    public double GetY() {
-        return this.y;
-    }
-
     // Setter
-    public void SetX(double newX) {
+    public void setX(double newX) {
         this.x = newX;
     }
 
-    public void SetY(double newY) {
+    public double getY() {
+        return this.y;
+    }
+
+    public void setY(double newY) {
         this.y = newY;
     }
 

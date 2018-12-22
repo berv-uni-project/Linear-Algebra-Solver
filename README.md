@@ -4,18 +4,9 @@
 [![Build Status](https://travis-ci.org/berv-uni-project/Linear-Algebra-Solver.svg?branch=master)](https://travis-ci.org/berv-uni-project/Linear-Algebra-Solver)
 [![codecov](https://codecov.io/gh/berv-uni-project/Linear-Algebra-Solver/branch/master/graph/badge.svg)](https://codecov.io/gh/berv-uni-project/Linear-Algebra-Solver)
 
-
-
-This software version 0.1
+This software version 1.0 Alpha
 
 ## Linear Algebra Solver
-
-### Running Program - Manually
-
-1. Use your command prompt or terminal.
-2. Make sure your directory `*$/Algeo-14047/bin/*` `($ : your directory save Algeo-14047)`
-3. Run it with command : `*java Interface*`
-4. Enjoy It!
 
 ### Compile from Source Code
  
@@ -23,4 +14,8 @@ This software version 0.1
 ./gradlew build
 ```
 
-#### Credits by Ngiong, Berv, Zahid
+## Create By
+
+1. Ngiong
+2. Berv
+3. Zahid

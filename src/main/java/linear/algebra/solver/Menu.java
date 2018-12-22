@@ -41,44 +41,44 @@ public class Menu {
     }
 
     private void printResult(String path) {
-        matrix.PrintMatrix();
+        matrix.printMatrix();
         double[] ans;
-        ans = matrix.SulihMundur();
-        PrintSolution(ans, matrix.GetNKolEff() - 1);
-        PrintSolutionToFile(ans, matrix.GetNKolEff() - 1, path);
+        ans = matrix.sulihMundur();
+        printSolution(ans, matrix.getNKolEff() - 1);
+        printSolutionToFile(ans, matrix.getNKolEff() - 1, path);
     }
 
-    private void ProcessGauss(int option) {
+    private void processGauss(int option) {
         switch (option) {
             case 1:
-                matrix.MatriksEselon();
-                matrix.PrintMatrix();
+                matrix.matrixEselon();
+                matrix.printMatrix();
                 System.out.println("Solusinya adalah :");
-                if (matrix.IsNoSolution()) {
+                if (matrix.isNoSolution()) {
                     System.out.println("Tidak ada solusi.");
                     writeFileAnswer("Tidak ada solusi");
-                } else if (matrix.IsManySolution()) {
+                } else if (matrix.isManySolution()) {
                     System.out.println("Solusi banyak.");
                     System.out.println("Solusi dalam bentuk parametriknya adalah :");
-                    matrix.PrintParametrik();
+                    matrix.printParametrik();
                     writeFileAnswer("Solusi Banyak.");
                 } else {
                     printResult("../test/jawabanA.txt");
                 }
                 break;
             case 2:
-                matrix.MatriksEselon();
-                matrix.Gauss_Jordan();
+                matrix.matrixEselon();
+                matrix.gaussJordan();
 
                 System.out.println("Solusinya adalah :");
-                if (matrix.IsNoSolution()) {
+                if (matrix.isNoSolution()) {
                     System.out.println("Tidak ada solusi.");
                     writeFileAnswer("Tidak ada solusi");
-                } else if (matrix.IsManySolution()) {
+                } else if (matrix.isManySolution()) {
                     System.out.println("Solusi banyak.");
-                    matrix.PrintMatrix();
+                    matrix.printMatrix();
                     System.out.println("Solusi dalam bentuk parametriknya adalah :");
-                    matrix.PrintParametrik();
+                    matrix.printParametrik();
                     writeFileAnswer("Solusi Banyak.");
                 } else {
                     printResult("../test/jawabanA.txt");
@@ -91,26 +91,26 @@ public class Menu {
 
     }
 
-    private void ShowSelectionMethodGauss() {
+    private void showSelectionMethodGauss() {
         System.out.println();
         System.out.println("1. Pakai metode Gauss");
         System.out.println("2. Pakai metode Gauss-Jordan");
         System.out.print("Pilihan : ");
         int option = scanner.nextInt();
         System.out.println();
-        ProcessGauss(option);
+        processGauss(option);
     }
 
-    private void ProcessSelectionMatrix(int option) {
+    private void processSelectionMatrix(int option) {
         switch (option) {
             case 1:
-                matrix.ReadMatrix();
-                ShowSelectionMethodGauss();
+                matrix.readMatrix();
+                showSelectionMethodGauss();
                 break;
             case 2:
                 InputStream resource = ClassLoader.getSystemClassLoader().getResourceAsStream("soalA.txt");
-                matrix.ReadMatrixFromFile(resource);
-                ShowSelectionMethodGauss();
+                matrix.readMatrixFromFile(resource);
+                showSelectionMethodGauss();
                 break;
             default:
                 System.out.println("Pilihan salah!");
@@ -118,34 +118,34 @@ public class Menu {
         }
     }
 
-    private void ShowOptionInputMatrix() {
+    private void showOptionInputMatrix() {
         System.out.println("1. Masukan dari papan ketik.");
         System.out.println("2. Masukan dari file text.");
         System.out.print("Pilihan : ");
         int option = scanner.nextInt();
-        ProcessSelectionMatrix(option);
+        processSelectionMatrix(option);
     }
 
     private void showGaussMenuByOptions(int option) {
         switch (option) {
             case 1:
-                ShowOptionInputMatrix();
+                showOptionInputMatrix();
                 break;
             case 2:
-                matrix.ReadMatrixFromFile("../test/soal1.txt");
-                matrix.MatriksEselon();
-                matrix.Gauss_Jordan();
-                matrix.PrintMatrix();
-                matrix.PrintMatrixFromFile("../test/jawaban1.txt");
+                matrix.readMatrixFromFile("../test/soal1.txt");
+                matrix.matrixEselon();
+                matrix.gaussJordan();
+                matrix.printMatrix();
+                matrix.printMatrixFromFile("../test/jawaban1.txt");
                 System.out.println("Solusinya adalah :");
                 printResult("../test/jawaban1.txt");
                 break;
             case 3:
-                matrix.ReadMatrixFromFile("../test/soal2.txt");
-                matrix.MatriksEselon();
-                matrix.Gauss_Jordan();
-                matrix.PrintMatrix();
-                matrix.PrintMatrixFromFile("../test/jawaban2.txt");
+                matrix.readMatrixFromFile("../test/soal2.txt");
+                matrix.matrixEselon();
+                matrix.gaussJordan();
+                matrix.printMatrix();
+                matrix.printMatrixFromFile("../test/jawaban2.txt");
                 System.out.println("Solusinya adalah :");
                 printResult("../test/jawaban2.txt");
                 break;
@@ -220,18 +220,18 @@ public class Menu {
                 for (int i = 1; i <= N; i++) {
                     double now = 1;
                     for (int j = 1; j <= N; j++) {
-                        MatInterpolasi.SetElement(i, j, now);
-                        now = now * TabPoint[i].GetX();
+                        MatInterpolasi.setElement(i, j, now);
+                        now = now * TabPoint[i].getX();
                     }
-                    MatInterpolasi.SetElement(i, N + 1, TabPoint[i].GetY());
+                    MatInterpolasi.setElement(i, N + 1, TabPoint[i].getY());
                 }
 
-                MatInterpolasi.MatriksEselon();
-                MatInterpolasi.Gauss_Jordan();
-                //MatInterpolasi.PrintMatrix("aaa.txt");
+                MatInterpolasi.matrixEselon();
+                MatInterpolasi.gaussJordan();
+                //MatInterpolasi.printMatrix("aaa.txt");
 
                 for (int i = N; i >= 1; i--) {
-                    a[i - 1] = MatInterpolasi.GetElmt(i, N + 1);
+                    a[i - 1] = MatInterpolasi.getElement(i, N + 1);
                 }
 					/*
 					for(int i=0; i<N; i++)
@@ -255,8 +255,8 @@ public class Menu {
                     f.println(fx(a, N, x));
                 }
                 System.out.println();
-                System.out.println(FXtoStr(a, N));
-                f.println(FXtoStr(a, N));
+                System.out.println(fXtoStr(a, N));
+                f.println(fXtoStr(a, N));
                 f.close();
             } catch (FileNotFoundException exception) {
                 System.out.println("Can't read file");
@@ -283,13 +283,13 @@ public class Menu {
         }
     }
 
-    private void PrintSolution(double[] val_X, int N) {
+    private void printSolution(double[] val_X, int N) {
         for (int i = 1; i <= N; i++) {
             System.out.println("X" + i + " = " + val_X[i]);
         }
     }
 
-    private void PrintSolutionToFile(double[] val_X, int N, String file_out) {
+    private void printSolutionToFile(double[] val_X, int N, String file_out) {
         try {
             PrintWriter f = new PrintWriter(file_out);
             for (int i = 1; i <= N; i++) {
@@ -314,7 +314,7 @@ public class Menu {
         return res;
     }
 
-    private String FXtoStr(double[] a, int n) {
+    private String fXtoStr(double[] a, int n) {
         StringBuilder answer = new StringBuilder();
         answer.append("f(x) =");
         for (int i = 0; i < n; i++) {

@@ -33,36 +33,36 @@ public class Matrix {
     }
 
     // Selektor
-    public int GetNBrsEff() {
+    public int getNBrsEff() {
         return this.NBrsEff;
     }
 
-    public int GetNKolEff() {
-        return this.NKolEff;
-    }
-
-    public double GetElmt(int i, int j) {
-        return this.Mem[i][j];
-    }
-
-    public double GetElmtDiagonal(int i) {
-        return this.Mem[i][i];
-    }
-
     // Setter
-    public void SetNBrsEff(int newN) {
+    public void setNBrsEff(int newN) {
         this.NBrsEff = newN;
     }
 
-    public void SetNKolEff(int newM) {
+    public int getNKolEff() {
+        return this.NKolEff;
+    }
+
+    public void setNKolEff(int newM) {
         this.NKolEff = newM;
     }
 
-    public void SetElement(int i, int j, double newVal) {
+    public double getElement(int i, int j) {
+        return this.Mem[i][j];
+    }
+
+    public double getElementDiagonal(int i) {
+        return this.Mem[i][i];
+    }
+
+    public void setElement(int i, int j, double newVal) {
         this.Mem[i][j] = newVal;
     }
 
-    private void ReadColumn(boolean isFromFile, Scanner input) {
+    private void readColumn(boolean isFromFile, Scanner input) {
         int N;
         if (!isFromFile) {
             do {
@@ -75,7 +75,7 @@ public class Matrix {
         this.NKolEff = N;
     }
 
-    private void ReadRow(boolean isFromFile, Scanner input) {
+    private void readRow(boolean isFromFile, Scanner input) {
         int M;
         if (!isFromFile) {
             do {
@@ -88,68 +88,68 @@ public class Matrix {
         this.NBrsEff = M;
     }
 
-    private void ReadMatrixByInput(Scanner input) {
-        for (int i = StartPoint; i <= this.GetNBrsEff(); i++) {
-            for (int j = StartPoint; j <= this.GetNKolEff(); j++) {
+    private void readMatrixByInput(Scanner input) {
+        for (int i = StartPoint; i <= this.getNBrsEff(); i++) {
+            for (int j = StartPoint; j <= this.getNKolEff(); j++) {
                 this.Mem[i][j] = input.nextDouble();
             }
         }
     }
 
     // Prosedur I/O
-    public void ReadMatrix() {
+    public void readMatrix() {
 		/* I.S. sembarang
 		   F.S. Matrix terisi sesuai dengan input user */
-        ReadColumn(true, this.scanner);
-        ReadRow(true, this.scanner);
-        ReadMatrixByInput(this.scanner);
+        readColumn(true, this.scanner);
+        readRow(true, this.scanner);
+        readMatrixByInput(this.scanner);
     }
 
-    public void PrintMatrix() {
+    public void printMatrix() {
 		/* I.S. sembarang
 		   F.S. nilai matriks tercetak pada layar */
-        for (int i = StartPoint; i <= this.GetNBrsEff(); i++) {
-            for (int j = StartPoint; j <= this.GetNKolEff(); j++) {
-                System.out.print(this.GetElmt(i, j));
-                if (j == this.GetNKolEff()) System.out.println();
+        for (int i = StartPoint; i <= this.getNBrsEff(); i++) {
+            for (int j = StartPoint; j <= this.getNKolEff(); j++) {
+                System.out.print(this.getElement(i, j));
+                if (j == this.getNKolEff()) System.out.println();
                 else System.out.print(" ");
             }
         }
     }
 
-    public void ReadMatrixFromFile(InputStream inputStream) {
+    public void readMatrixFromFile(InputStream inputStream) {
         /* I.S. direktori yang tersimpan dalam value file_in berisi sebuah matriks
 		   F.S. Matrix terisi sesuai dengan isi direktori file_in */
         Scanner in = new Scanner(inputStream);
-        ReadRow(true, in);
-        ReadColumn(true, in);
-        ReadMatrixByInput(in);
+        readRow(true, in);
+        readColumn(true, in);
+        readMatrixByInput(in);
     }
 
-    public void ReadMatrixFromFile(String file_in) {
+    public void readMatrixFromFile(String file_in) {
 		/* I.S. direktori yang tersimpan dalam value file_in berisi sebuah matriks 
 		   F.S. Matrix terisi sesuai dengan isi direktori file_in */
         try {
             File file = new File(file_in);
             Scanner in = new Scanner(new FileReader(file));
-            ReadRow(true, in);
-            ReadColumn(true, in);
-            ReadMatrixByInput(in);
+            readRow(true, in);
+            readColumn(true, in);
+            readMatrixByInput(in);
         } catch (FileNotFoundException exception) {
             System.out.println("Failed Read Data");
             System.out.println(exception.toString());
         }
     }
 
-    public void PrintMatrixFromFile(String file_out) {
+    public void printMatrixFromFile(String file_out) {
 		/* I.S. direktori yang tersimpan dalam value file_out kosong 
 		   F.S. direktori file_out terisi dengan matriks */
         try {
             PrintWriter f = new PrintWriter(file_out);
-            for (int i = StartPoint; i <= this.GetNBrsEff(); i++) {
-                for (int j = StartPoint; j <= this.GetNKolEff(); j++) {
-                    f.print(this.GetElmt(i, j));
-                    if (j == this.GetNKolEff()) f.println();
+            for (int i = StartPoint; i <= this.getNBrsEff(); i++) {
+                for (int j = StartPoint; j <= this.getNKolEff(); j++) {
+                    f.print(this.getElement(i, j));
+                    if (j == this.getNKolEff()) f.println();
                     else f.print(" ");
                 }
             }
@@ -161,34 +161,34 @@ public class Matrix {
     }
 
     // Prosedur Operasi Baris Elementer
-    public int MaxAbsColumn(int j, int i) {
+    public int maxAbsColumn(int j, int i) {
         /* prekondisi : Matrix terdefinisi j masuk ke dalam NKolEff
          * Mengembalikan indeks baris nilai maksimum dari kolom ke-j yang dimulai
          * dari baris ke i*/
 
         int idxMax = i;
-        for (int k = i; k <= this.GetNBrsEff(); k++) {
-            if (Math.abs(this.GetElmt(idxMax, j)) < Math.abs(this.GetElmt(k, j))) {
+        for (int k = i; k <= this.getNBrsEff(); k++) {
+            if (Math.abs(this.getElement(idxMax, j)) < Math.abs(this.getElement(k, j))) {
                 idxMax = k;
             }
         }
         return idxMax;
     }
 
-    public void SwitchRow(int a, int b) {
+    public void switchRow(int a, int b) {
         // Menukar baris ke a dan baris ke b
         // Kamus Lokal
         double tmp;
 
         // Algoritma
-        for (int j = StartPoint; j <= this.GetNKolEff(); j++) {
-            tmp = this.GetElmt(a, j);
-            this.SetElement(a, j, this.GetElmt(b, j));
-            this.SetElement(b, j, tmp);
+        for (int j = StartPoint; j <= this.getNKolEff(); j++) {
+            tmp = this.getElement(a, j);
+            this.setElement(a, j, this.getElement(b, j));
+            this.setElement(b, j, tmp);
         }
     }
 
-    public boolean CekKolNol(int i, int j) {
+    public boolean cekKolNol(int i, int j) {
         /* prekondisi matriks M terdefinisi, i dan j masuk dalam range NEFF
          * mengembalikan nilai true jika seluruh kolom j mulai dari baris i sampai
          * akhir sama dengan Nol dan false untuk sebaliknya*/
@@ -199,8 +199,8 @@ public class Matrix {
         // Algoritma
         isKolNol = true;
         k = i;
-        while (k <= this.GetNBrsEff() && isKolNol) {
-            if (this.GetElmt(k, j) != 0.0) {
+        while (k <= this.getNBrsEff() && isKolNol) {
+            if (this.getElement(k, j) != 0.0) {
                 isKolNol = false;
             } else {
                 k++;
@@ -209,7 +209,7 @@ public class Matrix {
         return isKolNol;
     }
 
-    public void MatriksEselon() {
+    public void matrixEselon() {
 		/* I.S. Matrix sembarang
 		   F.S. Matrix tereduksi menjadi matriks eselon dengan eliminasi Gauss */
 
@@ -218,64 +218,64 @@ public class Matrix {
         double currentElmt;
 
         // Algoritma
-        for (int j = 1; j <= this.GetNKolEff(); j++) {
-            if (j <= this.GetNBrsEff()) {
+        for (int j = 1; j <= this.getNKolEff(); j++) {
+            if (j <= this.getNBrsEff()) {
                 idxBrs = j;
             } else {
-                idxBrs = this.GetNBrsEff();
+                idxBrs = this.getNBrsEff();
             }
 
-            if (!this.CekKolNol(idxBrs, j)) {
+            if (!this.cekKolNol(idxBrs, j)) {
                 // KASUS NORMAL
-                for (int i = j; i <= this.GetNBrsEff(); i++) {
+                for (int i = j; i <= this.getNBrsEff(); i++) {
                     if (i == j) {
-                        iMax = this.MaxAbsColumn(j, j);
-                        this.SwitchRow(i, iMax);
-                        if (this.GetElmtDiagonal(i) != 0.0) {
-                            currentElmt = this.GetElmtDiagonal(i);
-                            for (int k = 1; k <= this.GetNKolEff(); k++) {
-                                if (this.GetElmt(i, k) != 0.0) {
-                                    this.SetElement(i, k, (this.GetElmt(i, k)) / currentElmt);
+                        iMax = this.maxAbsColumn(j, j);
+                        this.switchRow(i, iMax);
+                        if (this.getElementDiagonal(i) != 0.0) {
+                            currentElmt = this.getElementDiagonal(i);
+                            for (int k = 1; k <= this.getNKolEff(); k++) {
+                                if (this.getElement(i, k) != 0.0) {
+                                    this.setElement(i, k, (this.getElement(i, k)) / currentElmt);
                                 }
                             }
                         }
-                    } else if (this.GetElmtDiagonal(j) != 0.0) {
-                        currentElmt = this.GetElmt(i, j);
-                        for (int k = j; k <= this.GetNKolEff(); k++) {
+                    } else if (this.getElementDiagonal(j) != 0.0) {
+                        currentElmt = this.getElement(i, j);
+                        for (int k = j; k <= this.getNKolEff(); k++) {
 
-                            this.SetElement(i, k, (this.GetElmt(i, k) - (currentElmt * this.GetElmt(j, k))));
+                            this.setElement(i, k, (this.getElement(i, k) - (currentElmt * this.getElement(j, k))));
                         }
                     }
                 }
             } else {
                 // KASUS TIDAK NORMAL
                 idxKol = j;
-                if (idxKol < this.GetNKolEff()) {
+                if (idxKol < this.getNKolEff()) {
                     idxKol++;
                 }
-                for (int i = 1; i <= this.GetNBrsEff(); i++) {
-                    if (j > this.GetNBrsEff()) {
-                        idxBrs = this.GetNBrsEff();
+                for (int i = 1; i <= this.getNBrsEff(); i++) {
+                    if (j > this.getNBrsEff()) {
+                        idxBrs = this.getNBrsEff();
                     } else {
                         idxBrs = j;
                     }
 
-                    iMax = this.MaxAbsColumn(idxKol, idxBrs);
-                    this.SwitchRow(idxBrs, iMax);
+                    iMax = this.maxAbsColumn(idxKol, idxBrs);
+                    this.switchRow(idxBrs, iMax);
 
-                    if (this.GetElmt(idxBrs, idxKol) != 0.0) {
-                        currentElmt = this.GetElmt(idxBrs, idxKol);
-                        for (int k = 1; k <= this.GetNKolEff(); k++) {
-                            if (this.GetElmt(idxBrs, k) != 0.0) {
-                                this.SetElement(idxBrs, k, (this.GetElmt(idxBrs, k) / currentElmt));
+                    if (this.getElement(idxBrs, idxKol) != 0.0) {
+                        currentElmt = this.getElement(idxBrs, idxKol);
+                        for (int k = 1; k <= this.getNKolEff(); k++) {
+                            if (this.getElement(idxBrs, k) != 0.0) {
+                                this.setElement(idxBrs, k, (this.getElement(idxBrs, k) / currentElmt));
                             }
                         }
                     }
-                    if (i > j && this.GetElmt(j, idxKol) != 0.0) {
-                        currentElmt = this.GetElmt(i, idxKol);
-                        for (int k = j; k <= this.GetNKolEff(); k++) {
+                    if (i > j && this.getElement(j, idxKol) != 0.0) {
+                        currentElmt = this.getElement(i, idxKol);
+                        for (int k = j; k <= this.getNKolEff(); k++) {
 
-                            this.SetElement(i, k, (this.GetElmt(i, k) - (currentElmt * this.GetElmt(j, k))));
+                            this.setElement(i, k, (this.getElement(i, k) - (currentElmt * this.getElement(j, k))));
                         }
                     }
                     //TulisMATRIKS(*M);
@@ -286,7 +286,7 @@ public class Matrix {
     }
 
     // Prosedur Gauss-Jordan
-    public void Gauss_Jordan() {
+    public void gaussJordan() {
         /* I.S. : Matrix berupa matriks eselon dan memiliki solusi */
         /* F.S. : Matrix berupa matriks eselon tereduksi */
 
@@ -296,11 +296,11 @@ public class Matrix {
         double multiplier;
 
         // Algoritma
-        for (int i = this.GetNBrsEff(); i > 1; i--) {
+        for (int i = this.getNBrsEff(); i > 1; i--) {
             found = false;
             j = 1;
-            while (j < this.GetNKolEff() && !found) {
-                if (this.GetElmt(i, j) == 1.0) {
+            while (j < this.getNKolEff() && !found) {
+                if (this.getElement(i, j) == 1.0) {
                     found = true;
                 } else {
                     j++;
@@ -310,9 +310,9 @@ public class Matrix {
             if (found) {
                 idxSatuUtama = j;
                 for (int k = 1; k < i; k++) {
-                    multiplier = this.GetElmt(k, idxSatuUtama);
-                    for (int l = 1; l <= this.GetNKolEff(); l++) {
-                        this.SetElement(k, l, this.GetElmt(k, l) - (multiplier * this.GetElmt(i, l)));
+                    multiplier = this.getElement(k, idxSatuUtama);
+                    for (int l = 1; l <= this.getNKolEff(); l++) {
+                        this.setElement(k, l, this.getElement(k, l) - (multiplier * this.getElement(i, l)));
                     }
                 }
             } else {
@@ -321,7 +321,7 @@ public class Matrix {
         }
     }
 
-    public double[] SulihMundur() {
+    public double[] sulihMundur() {
 	    /*  I.S : Matrix terdefinisi dan matriks adalah matriks eselon
             F.S : Nilai dari matriks dimasukkan ke dalam array double */
 
@@ -332,12 +332,12 @@ public class Matrix {
         double[] val_X = new double[N_MAX + 1];
 
         // Algoritma
-        for (int i = this.GetNBrsEff(); i >= 1; i--) {
+        for (int i = this.getNBrsEff(); i >= 1; i--) {
             sum = 0;
             found = false;
             j = 1;
-            while (j < this.GetNKolEff() && !found) {
-                if (this.GetElmt(i, j) == 1.0) {
+            while (j < this.getNKolEff() && !found) {
+                if (this.getElement(i, j) == 1.0) {
                     found = true;
                 } else {
                     j++;
@@ -345,9 +345,9 @@ public class Matrix {
             }
 
             if (found) {
-                sum = this.GetElmt(i, this.GetNKolEff());
-                for (int k = j + 1; k < this.GetNKolEff(); k++) {
-                    sum -= this.GetElmt(i, k) * val_X[k];
+                sum = this.getElement(i, this.getNKolEff());
+                for (int k = j + 1; k < this.getNKolEff(); k++) {
+                    sum -= this.getElement(i, k) * val_X[k];
                 }
                 val_X[j] = sum;
             } else {
@@ -358,66 +358,66 @@ public class Matrix {
     }
 
     // Predikat untuk determinasi jenis SPL
-    public boolean IsBarisNol(int i) {
+    public boolean isBarisNol(int i) {
         /* Mengembalikan nilai true apabila baris ke-i pada matriks merupakan baris nol */
         int j = 1;
-        while (j < this.GetNKolEff() && this.GetElmt(i, j) == 0.0) {
+        while (j < this.getNKolEff() && this.getElement(i, j) == 0.0) {
             j++;
-        }// i == this.GetNKolEff || i!=0.0
-        if (this.GetElmt(i, j) == 0.0) {
+        }// i == this.getNKolEff || i!=0.0
+        if (this.getElement(i, j) == 0.0) {
             return true;
         } else {
             return false;
         }
     }
 
-    public int CountBarisNol() {
+    public int countBarisNol() {
         /* Menghitung kemunculan baris nol pada matriks */
         int cnt = 0;
-        for (int i = 1; i <= this.GetNBrsEff(); i++) {
-            if (this.IsBarisNol(i)) cnt++;
+        for (int i = 1; i <= this.getNBrsEff(); i++) {
+            if (this.isBarisNol(i)) cnt++;
         }
         return cnt;
     }
 
-    public boolean IsManySolution() {
+    public boolean isManySolution() {
         /* Menghasilkan true apabila SPL memiliki solusi banyak, yaitu jika jumlahVariabel < jumlahPersamaan */
-        int jumlahBarisNol = this.CountBarisNol();
-        int jumlahVariabel = this.GetNKolEff() - 1;
-        if (this.GetNBrsEff() - jumlahBarisNol < jumlahVariabel) {
+        int jumlahBarisNol = this.countBarisNol();
+        int jumlahVariabel = this.getNKolEff() - 1;
+        if (this.getNBrsEff() - jumlahBarisNol < jumlahVariabel) {
             return true;
         } else {
             return false;
         }
     }
 
-    public boolean IsBarisSiluman(int i) {
+    public boolean isBarisSiluman(int i) {
         /* Menghasilkan true apabila baris ke-i merupakan baris "siluman", yaitu baris yang 000000X */
         int j = 1;
-        while (j < this.GetNKolEff() && this.GetElmt(i, j) == 0.0) {
+        while (j < this.getNKolEff() && this.getElement(i, j) == 0.0) {
             j++;
-        }// i == this.GetNKolEff || i!=0.0
-        if (j == this.GetNKolEff() && this.GetElmt(i, j) != 0.0) {
+        }// i == this.getNKolEff || i!=0.0
+        if (j == this.getNKolEff() && this.getElement(i, j) != 0.0) {
             return true;
         } else {
             return false;
         }
     }
 
-    public boolean IsNoSolution() {
+    public boolean isNoSolution() {
         /* Menghasilkan nilai true apabila SPL tidak memiliki solusi, yaitu ketika SPL memiliki baris "siluman" */
         int i = 1;
-        while (i < this.GetNBrsEff() && !(this.IsBarisSiluman(i))) {
+        while (i < this.getNBrsEff() && !(this.isBarisSiluman(i))) {
             i++;
-        }// i == NBrsEff || IsBarisSiluman
-        if (this.IsBarisSiluman(i)) {
+        }// i == NBrsEff || isBarisSiluman
+        if (this.isBarisSiluman(i)) {
             return true;
         } else {
             return false;
         }
     }
 
-    public void PrintParametrik() {
+    public void printParametrik() {
         /* Menghasilkan nilai-nilai variabel-variabel dalam bentuk parametrik */
         // Kamus Lokal
         boolean[] stat = new boolean[N_MAX + 1];
@@ -427,29 +427,29 @@ public class Matrix {
         for (char c = 'a'; c <= 'z'; c++) {
             ans[c - 'a' + 1] = Character.toString(c);
         }
-        int startingI = this.GetNBrsEff();
-        while (startingI > 1 && IsBarisNol(startingI)) {
+        int startingI = this.getNBrsEff();
+        while (startingI > 1 && isBarisNol(startingI)) {
             startingI--;
-        } // startingI == 1 || !IsBarisNol(startingI)
+        } // startingI == 1 || !isBarisNol(startingI)
         for (int i = startingI; i >= 1; i--) {
             // Cari indeks untuk set nilai
             int idxSet = 1;
-            while ((this.GetElmt(i, idxSet) == 0 || stat[idxSet]) && idxSet < this.GetNKolEff() - 1) {
+            while ((this.getElement(i, idxSet) == 0 || stat[idxSet]) && idxSet < this.getNKolEff() - 1) {
                 idxSet++;
-            }// GetElmt(idxSet)!=0 && stat[idxSet]==false
+            }// getElement(idxSet)!=0 && stat[idxSet]==false
             stat[idxSet] = true;
 
             // Hitung nilai string yg akan diset
             String tmp;
-            tmp = String.valueOf(this.GetElmt(i, this.GetNKolEff()));
-            for (int j = this.GetNKolEff() - 1; j >= 1; j--) {
+            tmp = String.valueOf(this.getElement(i, this.getNKolEff()));
+            for (int j = this.getNKolEff() - 1; j >= 1; j--) {
                 if (j == idxSet) continue;
                 else {
                     char operator;
                     double multiplier;
                     String nilai;
 
-                    multiplier = this.GetElmt(i, j);
+                    multiplier = this.getElement(i, j);
                     nilai = ans[j];
                     if (nilai.length() != 1)
                         nilai = "(" + nilai + ")";
@@ -471,13 +471,13 @@ public class Matrix {
                 }
             }
 
-            if (this.GetElmt(i, idxSet) != 1.0)
-                tmp = "(" + tmp + ")" + "/" + String.valueOf(GetElmt(i, idxSet));
+            if (this.getElement(i, idxSet) != 1.0)
+                tmp = "(" + tmp + ")" + "/" + String.valueOf(getElement(i, idxSet));
 
             ans[idxSet] = tmp;
 
         }
-        for (int j = 1; j < this.GetNKolEff(); j++) {
+        for (int j = 1; j < this.getNKolEff(); j++) {
             System.out.println("X" + String.valueOf(j) + " = " + ans[j]);
         }
 
