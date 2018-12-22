@@ -1,5 +1,29 @@
 language: java
 
-before_script: chmod +x $TRAVIS_BUILD_DIR/compile.sh
+jdk:
+  - oraclejdk11
 
-script: $TRAVIS_BUILD_DIR/compile.sh
+before_install:
+  - chmod +x gradlew
+
+install: ./gradlew assemble
+
+before_script:
+  - ./gradlew check
+  - ./gradlew jacocoTestReport
+  - bash <(curl -s https://codecov.io/bash)
+
+script:
+  - ./gradlew build
+  - ./gradlew javadoc
+
+deploy:
+  provider: pages
+  skip-cleanup: true
+  local_dir: build/docs/javadoc
+  github-token: $GITHUB_TOKEN  # Set in the settings page of your repository, as a secure variable
+  keep-history: true
+  target-branch: gh-pages
+  committer-from-gh: true
+  on:
+    branch: master
