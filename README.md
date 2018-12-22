@@ -14,8 +14,14 @@ This software version 1.0 Alpha
 ./gradlew build
 ```
 
+### Run
+
+```bash
+./gradlew run -q --console=plain
+```
+
 ## Create By
 
-1. Ngiong
-2. Berv
-3. Zahid
+1.Ngiong
+2.Berv
+3.Zahid
