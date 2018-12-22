@@ -8,6 +8,7 @@
 plugins {
     // Apply the java-library plugin to add support for Java Library
     id 'java-library'
+    id 'jacoco'
 }
 
 repositories {
@@ -31,6 +32,13 @@ jar {
     manifest {
         attributes('Implementation-Title': project.name,
                 'Implementation-Version': project.version)
+    }
+}
+
+jacocoTestReport {
+    reports {
+        xml.enabled true
+        html.enabled false
     }
 }
 
