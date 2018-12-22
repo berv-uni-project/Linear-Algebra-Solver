@@ -1,6 +1,6 @@
 package linear.algebra.solver;
 /*
-	ADT Matriks
+	ADT Matrix
 */
 
 import java.io.File;
@@ -10,18 +10,26 @@ import java.io.PrintWriter;
 import java.util.Arrays;
 import java.util.Scanner;
 
-public class Matriks {
-    public static final int NMAX = 100;
-    public int NBrsEff;
-    public int NKolEff;
-    public double[][] Mem = new double[NMAX + 1][NMAX + 1];
+public class Matrix {
+    private final int N_MAX = 100;
+    private final int StartPoint = 1;
+    private int NBrsEff;
+    private int NKolEff;
+    private double[][] Mem = new double[N_MAX + 1][N_MAX + 1];
 
-    // Konstruktor
-    Matriks(int N, int M) {
-        this.NBrsEff = N;
-        this.NKolEff = M;
-        for (int i = 1; i <= N; i++) {
-            for (int j = 1; j <= M; j++) {
+    private Scanner scanner = new Scanner(System.in);
+
+    /**
+     * Constructor Default
+     *
+     * @param row    Row
+     * @param column Column
+     */
+    Matrix(int row, int column) {
+        this.NBrsEff = row;
+        this.NKolEff = column;
+        for (int i = StartPoint; i <= row; i++) {
+            for (int j = StartPoint; j <= column; j++) {
                 this.Mem[i][j] = 0;
             }
         }
@@ -53,33 +61,58 @@ public class Matriks {
         this.NKolEff = newM;
     }
 
-    public void SetElmt(int i, int j, double newVal) {
+    public void SetElement(int i, int j, double newVal) {
         this.Mem[i][j] = newVal;
     }
 
-    // Prosedur I/O
-    public void BacaMATRIKS() {
-		/* I.S. sembarang
-		   F.S. Matriks terisi sesuai dengan input user */
-        Scanner in = new Scanner(System.in);
-        int N, M;
-        N = in.nextInt();
-        M = in.nextInt();
-        this.NBrsEff = N;
-        this.NKolEff = M;
+    private void ReadColumn(boolean isFromFile, Scanner input) {
+        int N;
+        if (!isFromFile) {
+            do {
+                System.out.println("Masukan jumlah baris :");
+                N = input.nextInt();
+            } while (N > 100 && N < 1);
+        } else {
+            N = input.nextInt();
+        }
+        this.NKolEff = N;
+    }
 
-        for (int i = 1; i <= this.GetNBrsEff(); i++) {
-            for (int j = 1; j <= this.GetNKolEff(); j++) {
-                this.Mem[i][j] = in.nextDouble();
+    private void ReadRow(boolean isFromFile, Scanner input) {
+        int M;
+        if (!isFromFile) {
+            do {
+                System.out.println("Masukan jumlah kolom :");
+                M = input.nextInt();
+            } while (M > 100 && M < 1);
+        } else {
+            M = input.nextInt();
+        }
+        this.NBrsEff = M;
+    }
+
+    private void ReadMatrixByInput(Scanner input) {
+        for (int i = StartPoint; i <= this.GetNBrsEff(); i++) {
+            for (int j = StartPoint; j <= this.GetNKolEff(); j++) {
+                this.Mem[i][j] = input.nextDouble();
             }
         }
     }
 
-    public void PrintMATRIKS() {
+    // Prosedur I/O
+    public void ReadMatrix() {
+		/* I.S. sembarang
+		   F.S. Matrix terisi sesuai dengan input user */
+        ReadColumn(true, this.scanner);
+        ReadRow(true, this.scanner);
+        ReadMatrixByInput(this.scanner);
+    }
+
+    public void PrintMatrix() {
 		/* I.S. sembarang
 		   F.S. nilai matriks tercetak pada layar */
-        for (int i = 1; i <= this.GetNBrsEff(); i++) {
-            for (int j = 1; j <= this.GetNKolEff(); j++) {
+        for (int i = StartPoint; i <= this.GetNBrsEff(); i++) {
+            for (int j = StartPoint; j <= this.GetNKolEff(); j++) {
                 System.out.print(this.GetElmt(i, j));
                 if (j == this.GetNKolEff()) System.out.println();
                 else System.out.print(" ");
@@ -87,41 +120,43 @@ public class Matriks {
         }
     }
 
-    public void BacaMATRIKSfromFile(String file_in) throws FileNotFoundException {
+    public void ReadMatrixFromFile(String file_in) {
 		/* I.S. direktori yang tersimpan dalam value file_in berisi sebuah matriks 
-		   F.S. Matriks terisi sesuai dengan isi direktori file_in */
-        File file = new File(file_in);
-        Scanner in = new Scanner(new FileReader(file));
-        int N, M;
-        N = in.nextInt();
-        M = in.nextInt();
-        this.NBrsEff = N;
-        this.NKolEff = M;
-
-        for (int i = 1; i <= this.GetNBrsEff(); i++) {
-            for (int j = 1; j <= this.GetNKolEff(); j++) {
-                this.Mem[i][j] = in.nextDouble();
-            }
+		   F.S. Matrix terisi sesuai dengan isi direktori file_in */
+        try {
+            File file = new File(file_in);
+            Scanner in = new Scanner(new FileReader(file));
+            ReadRow(false, in);
+            ReadColumn(false, in);
+            ReadMatrixByInput(in);
+        } catch (FileNotFoundException exception) {
+            System.out.println("Failed Read Data");
         }
+
     }
 
-    public void PrintMATRIKStoFile(String file_out) throws FileNotFoundException {
+    public void PrintMatrixFromFile(String file_out) {
 		/* I.S. direktori yang tersimpan dalam value file_out kosong 
 		   F.S. direktori file_out terisi dengan matriks */
-        PrintWriter f = new PrintWriter(file_out);
-        for (int i = 1; i <= this.GetNBrsEff(); i++) {
-            for (int j = 1; j <= this.GetNKolEff(); j++) {
-                f.print(this.GetElmt(i, j));
-                if (j == this.GetNKolEff()) f.println();
-                else f.print(" ");
+        try {
+            PrintWriter f = new PrintWriter(file_out);
+            for (int i = StartPoint; i <= this.GetNBrsEff(); i++) {
+                for (int j = StartPoint; j <= this.GetNKolEff(); j++) {
+                    f.print(this.GetElmt(i, j));
+                    if (j == this.GetNKolEff()) f.println();
+                    else f.print(" ");
+                }
             }
+            f.close();
+        } catch (FileNotFoundException exception) {
+            System.out.println("File Not Found");
         }
-        f.close();
+
     }
 
     // Prosedur Operasi Baris Elementer
-    public int MaxAbsKol(int j, int i) {
-        /* prekondisi : Matriks terdefinisi j masuk ke dalam NKolEff
+    public int MaxAbsColumn(int j, int i) {
+        /* prekondisi : Matrix terdefinisi j masuk ke dalam NKolEff
          * Mengembalikan indeks baris nilai maksimum dari kolom ke-j yang dimulai
          * dari baris ke i*/
 
@@ -134,16 +169,16 @@ public class Matriks {
         return idxMax;
     }
 
-    public void TukarBaris(int a, int b) {
+    public void SwitchRow(int a, int b) {
         // Menukar baris ke a dan baris ke b
         // Kamus Lokal
         double tmp;
 
         // Algoritma
-        for (int j = 1; j <= this.GetNKolEff(); j++) {
+        for (int j = StartPoint; j <= this.GetNKolEff(); j++) {
             tmp = this.GetElmt(a, j);
-            this.SetElmt(a, j, this.GetElmt(b, j));
-            this.SetElmt(b, j, tmp);
+            this.SetElement(a, j, this.GetElmt(b, j));
+            this.SetElement(b, j, tmp);
         }
     }
 
@@ -169,8 +204,8 @@ public class Matriks {
     }
 
     public void MatriksEselon() {
-		/* I.S. Matriks sembarang
-		   F.S. Matriks tereduksi menjadi matriks eselon dengan eliminasi Gauss */
+		/* I.S. Matrix sembarang
+		   F.S. Matrix tereduksi menjadi matriks eselon dengan eliminasi Gauss */
 
         // Kamus Lokal
         int iMax, idxBrs, idxKol;
@@ -188,13 +223,13 @@ public class Matriks {
                 // KASUS NORMAL
                 for (int i = j; i <= this.GetNBrsEff(); i++) {
                     if (i == j) {
-                        iMax = this.MaxAbsKol(j, j);
-                        this.TukarBaris(i, iMax);
+                        iMax = this.MaxAbsColumn(j, j);
+                        this.SwitchRow(i, iMax);
                         if (this.GetElmtDiagonal(i) != 0.0) {
                             currentElmt = this.GetElmtDiagonal(i);
                             for (int k = 1; k <= this.GetNKolEff(); k++) {
                                 if (this.GetElmt(i, k) != 0.0) {
-                                    this.SetElmt(i, k, (this.GetElmt(i, k)) / currentElmt);
+                                    this.SetElement(i, k, (this.GetElmt(i, k)) / currentElmt);
                                 }
                             }
                         }
@@ -202,7 +237,7 @@ public class Matriks {
                         currentElmt = this.GetElmt(i, j);
                         for (int k = j; k <= this.GetNKolEff(); k++) {
 
-                            this.SetElmt(i, k, (this.GetElmt(i, k) - (currentElmt * this.GetElmt(j, k))));
+                            this.SetElement(i, k, (this.GetElmt(i, k) - (currentElmt * this.GetElmt(j, k))));
                         }
                     }
                 }
@@ -219,14 +254,14 @@ public class Matriks {
                         idxBrs = j;
                     }
 
-                    iMax = this.MaxAbsKol(idxKol, idxBrs);
-                    this.TukarBaris(idxBrs, iMax);
+                    iMax = this.MaxAbsColumn(idxKol, idxBrs);
+                    this.SwitchRow(idxBrs, iMax);
 
                     if (this.GetElmt(idxBrs, idxKol) != 0.0) {
                         currentElmt = this.GetElmt(idxBrs, idxKol);
                         for (int k = 1; k <= this.GetNKolEff(); k++) {
                             if (this.GetElmt(idxBrs, k) != 0.0) {
-                                this.SetElmt(idxBrs, k, (this.GetElmt(idxBrs, k) / currentElmt));
+                                this.SetElement(idxBrs, k, (this.GetElmt(idxBrs, k) / currentElmt));
                             }
                         }
                     }
@@ -234,7 +269,7 @@ public class Matriks {
                         currentElmt = this.GetElmt(i, idxKol);
                         for (int k = j; k <= this.GetNKolEff(); k++) {
 
-                            this.SetElmt(i, k, (this.GetElmt(i, k) - (currentElmt * this.GetElmt(j, k))));
+                            this.SetElement(i, k, (this.GetElmt(i, k) - (currentElmt * this.GetElmt(j, k))));
                         }
                     }
                     //TulisMATRIKS(*M);
@@ -246,8 +281,8 @@ public class Matriks {
 
     // Prosedur Gauss-Jordan
     public void Gauss_Jordan() {
-        /* I.S. : Matriks berupa matriks eselon dan memiliki solusi */
-        /* F.S. : Matriks berupa matriks eselon tereduksi */
+        /* I.S. : Matrix berupa matriks eselon dan memiliki solusi */
+        /* F.S. : Matrix berupa matriks eselon tereduksi */
 
         // Kamus Lokal
         int idxSatuUtama, j;
@@ -271,7 +306,7 @@ public class Matriks {
                 for (int k = 1; k < i; k++) {
                     multiplier = this.GetElmt(k, idxSatuUtama);
                     for (int l = 1; l <= this.GetNKolEff(); l++) {
-                        this.SetElmt(k, l, this.GetElmt(k, l) - (multiplier * this.GetElmt(i, l)));
+                        this.SetElement(k, l, this.GetElmt(k, l) - (multiplier * this.GetElmt(i, l)));
                     }
                 }
             } else {
@@ -280,15 +315,15 @@ public class Matriks {
         }
     }
 
-    public double[] Sulih_Mundur() {
-	    /*  I.S : Matriks terdefinisi dan matriks adalah matriks eselon
+    public double[] SulihMundur() {
+	    /*  I.S : Matrix terdefinisi dan matriks adalah matriks eselon
             F.S : Nilai dari matriks dimasukkan ke dalam array double */
 
         // Kamus Lokal
         int j;
         boolean found;
         double sum;
-        double[] val_X = new double[NMAX + 1];
+        double[] val_X = new double[N_MAX + 1];
 
         // Algoritma
         for (int i = this.GetNBrsEff(); i >= 1; i--) {
@@ -379,8 +414,8 @@ public class Matriks {
     public void PrintParametrik() {
         /* Menghasilkan nilai-nilai variabel-variabel dalam bentuk parametrik */
         // Kamus Lokal
-        boolean[] stat = new boolean[NMAX + 1];
-        String[] ans = new String[NMAX + 1];
+        boolean[] stat = new boolean[N_MAX + 1];
+        String[] ans = new String[N_MAX + 1];
         // Algoritma
         Arrays.fill(stat, false);
         for (char c = 'a'; c <= 'z'; c++) {
