@@ -1,1 +1,1 @@
-typeSearchIndex = [{"l":"All Classes","url":"allclasses-index.html"},{"p":"<Unnamed>","l":"Interface"},{"p":"<Unnamed>","l":"Matriks"},{"p":"<Unnamed>","l":"Point"}]
+typeSearchIndex = [{"l":"All Classes","url":"allclasses-index.html"},{"p":"linear.algebra.solver","l":"Interface"},{"p":"linear.algebra.solver","l":"Matriks"},{"p":"linear.algebra.solver","l":"Point"}]
