@@ -2,6 +2,7 @@ package linear.algebra.solver;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.InputStream;
 import java.io.PrintWriter;
 import java.util.Scanner;
 
@@ -107,7 +108,8 @@ public class Menu {
                 ShowSelectionMethodGauss();
                 break;
             case 2:
-                matrix.ReadMatrixFromFile("../test/soalA.txt");
+                InputStream resource = ClassLoader.getSystemClassLoader().getResourceAsStream("soalA.txt");
+                matrix.ReadMatrixFromFile(resource);
                 ShowSelectionMethodGauss();
                 break;
             default:

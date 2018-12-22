@@ -3,10 +3,7 @@ package linear.algebra.solver;
 	ADT Matrix
 */
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.PrintWriter;
+import java.io.*;
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -120,19 +117,28 @@ public class Matrix {
         }
     }
 
+    public void ReadMatrixFromFile(InputStream inputStream) {
+        /* I.S. direktori yang tersimpan dalam value file_in berisi sebuah matriks
+		   F.S. Matrix terisi sesuai dengan isi direktori file_in */
+        Scanner in = new Scanner(inputStream);
+        ReadRow(true, in);
+        ReadColumn(true, in);
+        ReadMatrixByInput(in);
+    }
+
     public void ReadMatrixFromFile(String file_in) {
 		/* I.S. direktori yang tersimpan dalam value file_in berisi sebuah matriks 
 		   F.S. Matrix terisi sesuai dengan isi direktori file_in */
         try {
             File file = new File(file_in);
             Scanner in = new Scanner(new FileReader(file));
-            ReadRow(false, in);
-            ReadColumn(false, in);
+            ReadRow(true, in);
+            ReadColumn(true, in);
             ReadMatrixByInput(in);
         } catch (FileNotFoundException exception) {
             System.out.println("Failed Read Data");
+            System.out.println(exception.toString());
         }
-
     }
 
     public void PrintMatrixFromFile(String file_out) {
