@@ -9,7 +9,7 @@ This software version 1.0 Alpha
 ## Linear Algebra Solver
 
 ### Compile from Source Code
- 
+
 ```bash
 ./gradlew build
 ```
