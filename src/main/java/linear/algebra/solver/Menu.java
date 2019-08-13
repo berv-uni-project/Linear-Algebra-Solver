@@ -50,43 +50,43 @@ public class Menu {
 
     private void processGauss(int option) {
         switch (option) {
-            case 1:
-                matrix.matrixEselon();
-                matrix.printMatrix();
-                System.out.println("Solusinya adalah :");
-                if (matrix.isNoSolution()) {
-                    System.out.println("Tidak ada solusi.");
-                    writeFileAnswer("Tidak ada solusi");
-                } else if (matrix.isManySolution()) {
-                    System.out.println("Solusi banyak.");
-                    System.out.println("Solusi dalam bentuk parametriknya adalah :");
-                    matrix.printParametrik();
-                    writeFileAnswer("Solusi Banyak.");
-                } else {
-                    printResult("../test/jawabanA.txt");
-                }
-                break;
-            case 2:
-                matrix.matrixEselon();
-                matrix.gaussJordan();
+        case 1:
+            matrix.matrixEselon();
+            matrix.printMatrix();
+            System.out.println("Solusinya adalah :");
+            if (matrix.isNoSolution()) {
+                System.out.println("Tidak ada solusi.");
+                writeFileAnswer("Tidak ada solusi");
+            } else if (matrix.isManySolution()) {
+                System.out.println("Solusi banyak.");
+                System.out.println("Solusi dalam bentuk parametriknya adalah :");
+                matrix.printParametrik();
+                writeFileAnswer("Solusi Banyak.");
+            } else {
+                printResult("../test/jawabanA.txt");
+            }
+            break;
+        case 2:
+            matrix.matrixEselon();
+            matrix.gaussJordan();
 
-                System.out.println("Solusinya adalah :");
-                if (matrix.isNoSolution()) {
-                    System.out.println("Tidak ada solusi.");
-                    writeFileAnswer("Tidak ada solusi");
-                } else if (matrix.isManySolution()) {
-                    System.out.println("Solusi banyak.");
-                    matrix.printMatrix();
-                    System.out.println("Solusi dalam bentuk parametriknya adalah :");
-                    matrix.printParametrik();
-                    writeFileAnswer("Solusi Banyak.");
-                } else {
-                    printResult("../test/jawabanA.txt");
-                }
-                break;
-            default:
-                System.out.println("Pilihan salah!");
-                break;
+            System.out.println("Solusinya adalah :");
+            if (matrix.isNoSolution()) {
+                System.out.println("Tidak ada solusi.");
+                writeFileAnswer("Tidak ada solusi");
+            } else if (matrix.isManySolution()) {
+                System.out.println("Solusi banyak.");
+                matrix.printMatrix();
+                System.out.println("Solusi dalam bentuk parametriknya adalah :");
+                matrix.printParametrik();
+                writeFileAnswer("Solusi Banyak.");
+            } else {
+                printResult("../test/jawabanA.txt");
+            }
+            break;
+        default:
+            System.out.println("Pilihan salah!");
+            break;
         }
 
     }
@@ -103,18 +103,18 @@ public class Menu {
 
     private void processSelectionMatrix(int option) {
         switch (option) {
-            case 1:
-                matrix.readMatrix();
-                showSelectionMethodGauss();
-                break;
-            case 2:
-                InputStream resource = ClassLoader.getSystemClassLoader().getResourceAsStream("soalA.txt");
-                matrix.readMatrixFromFile(resource);
-                showSelectionMethodGauss();
-                break;
-            default:
-                System.out.println("Pilihan salah!");
-                break;
+        case 1:
+            matrix.readMatrix();
+            showSelectionMethodGauss();
+            break;
+        case 2:
+            InputStream resource = ClassLoader.getSystemClassLoader().getResourceAsStream("soalA.txt");
+            matrix.readMatrixFromFile(resource);
+            showSelectionMethodGauss();
+            break;
+        default:
+            System.out.println("Pilihan salah!");
+            break;
         }
     }
 
@@ -128,30 +128,30 @@ public class Menu {
 
     private void showGaussMenuByOptions(int option) {
         switch (option) {
-            case 1:
-                showOptionInputMatrix();
-                break;
-            case 2:
-                matrix.readMatrixFromFile("../test/soal1.txt");
-                matrix.matrixEselon();
-                matrix.gaussJordan();
-                matrix.printMatrix();
-                matrix.printMatrixFromFile("../test/jawaban1.txt");
-                System.out.println("Solusinya adalah :");
-                printResult("../test/jawaban1.txt");
-                break;
-            case 3:
-                matrix.readMatrixFromFile("../test/soal2.txt");
-                matrix.matrixEselon();
-                matrix.gaussJordan();
-                matrix.printMatrix();
-                matrix.printMatrixFromFile("../test/jawaban2.txt");
-                System.out.println("Solusinya adalah :");
-                printResult("../test/jawaban2.txt");
-                break;
-            default:
-                System.out.println("Pilihan salah");
-                break;
+        case 1:
+            showOptionInputMatrix();
+            break;
+        case 2:
+            matrix.readMatrixFromFile("../test/soal1.txt");
+            matrix.matrixEselon();
+            matrix.gaussJordan();
+            matrix.printMatrix();
+            matrix.printMatrixFromFile("../test/jawaban1.txt");
+            System.out.println("Solusinya adalah :");
+            printResult("../test/jawaban1.txt");
+            break;
+        case 3:
+            matrix.readMatrixFromFile("../test/soal2.txt");
+            matrix.matrixEselon();
+            matrix.gaussJordan();
+            matrix.printMatrix();
+            matrix.printMatrixFromFile("../test/jawaban2.txt");
+            System.out.println("Solusinya adalah :");
+            printResult("../test/jawaban2.txt");
+            break;
+        default:
+            System.out.println("Pilihan salah");
+            break;
         }
         System.out.println();
     }
@@ -185,11 +185,9 @@ public class Menu {
         } else if (pilihan2 == 2) {
             file_in = "../test/soal4a.txt";
             file_out = "../test/jawaban4a.txt";
-
         } else if (pilihan2 == 3) {
             file_in = "../test/soal4b.txt";
             file_out = "../test/jawaban4b.txt";
-
         } else if (pilihan2 == 4) {
             file_in = "../test/soal5.txt";
             file_out = "../test/jawaban5.txt";
@@ -228,18 +226,14 @@ public class Menu {
 
                 MatInterpolasi.matrixEselon();
                 MatInterpolasi.gaussJordan();
-                //MatInterpolasi.printMatrix("aaa.txt");
+                // MatInterpolasi.printMatrix("aaa.txt");
 
                 for (int i = N; i >= 1; i--) {
                     a[i - 1] = MatInterpolasi.getElement(i, N + 1);
                 }
-					/*
-					for(int i=0; i<N; i++)
-					{
-						f.print(a[i]);
-						f.println();
-					}
-					*/
+                /*
+                 * for(int i=0; i<N; i++) { f.print(a[i]); f.println(); }
+                 */
                 System.out.print("Masukan jumlah query : ");
                 int Q;
                 Q = scanner.nextInt();
@@ -258,6 +252,7 @@ public class Menu {
                 System.out.println(fXtoStr(a, N));
                 f.println(fXtoStr(a, N));
                 f.close();
+                inFile.close();
             } catch (FileNotFoundException exception) {
                 System.out.println("Can't read file");
             }
@@ -266,20 +261,20 @@ public class Menu {
 
     public boolean showSubmenu(int option) {
         switch (option) {
-            case 1:
-                showGaussProblemMenu();
-                return false;
-            case 2:
-                showInterpolationMenu();
-                return false;
-            case 3:
-                System.out.println("Terima kasih telah menggunakan program ini.");
-                System.out.println();
-                return true;
-            default:
-                System.out.println("Perintah salah. Ulangi!");
-                System.out.println();
-                return false;
+        case 1:
+            showGaussProblemMenu();
+            return false;
+        case 2:
+            showInterpolationMenu();
+            return false;
+        case 3:
+            System.out.println("Terima kasih telah menggunakan program ini.");
+            System.out.println();
+            return true;
+        default:
+            System.out.println("Perintah salah. Ulangi!");
+            System.out.println();
+            return false;
         }
     }
 
@@ -319,8 +314,11 @@ public class Menu {
         answer.append("f(x) =");
         for (int i = 0; i < n; i++) {
             if (a[i] != 0.0) {
-                if (i == 0) answer.append(String.format(" %f", a[i]));
-                else answer.append(String.format(" + %fx^%d", a[i], i));
+                if (i == 0) {
+                    answer.append(String.format(" %f", a[i]));
+                } else {
+                    answer.append(String.format(" + %fx^%d", a[i], i));
+                }
             }
         }
         return answer.toString();

@@ -98,28 +98,35 @@ public class Matrix {
 
     // Prosedur I/O
     public void readMatrix() {
-		/* I.S. sembarang
-		   F.S. Matrix terisi sesuai dengan input user */
+        /**
+         * I.S. sembarang. F.S. Matrix terisi sesuai dengan input user
+         */
         readColumn(true, this.scanner);
         readRow(true, this.scanner);
         readMatrixByInput(this.scanner);
     }
 
     public void printMatrix() {
-		/* I.S. sembarang
-		   F.S. nilai matriks tercetak pada layar */
+        /*
+         * I.S. sembarang. F.S. nilai matriks tercetak pada layar
+         */
         for (int i = StartPoint; i <= this.getNBrsEff(); i++) {
             for (int j = StartPoint; j <= this.getNKolEff(); j++) {
                 System.out.print(this.getElement(i, j));
-                if (j == this.getNKolEff()) System.out.println();
-                else System.out.print(" ");
+                if (j == this.getNKolEff()) {
+                    System.out.println();
+                } else {
+                    System.out.print(" ");
+                }
             }
         }
     }
 
     public void readMatrixFromFile(InputStream inputStream) {
-        /* I.S. direktori yang tersimpan dalam value file_in berisi sebuah matriks
-		   F.S. Matrix terisi sesuai dengan isi direktori file_in */
+        /*
+         * I.S. direktori yang tersimpan dalam value file_in berisi sebuah matriks. F.S.
+         * Matrix terisi sesuai dengan isi direktori file_in
+         */
         Scanner in = new Scanner(inputStream);
         readRow(true, in);
         readColumn(true, in);
@@ -127,8 +134,10 @@ public class Matrix {
     }
 
     public void readMatrixFromFile(String file_in) {
-		/* I.S. direktori yang tersimpan dalam value file_in berisi sebuah matriks 
-		   F.S. Matrix terisi sesuai dengan isi direktori file_in */
+        /*
+         * I.S. direktori yang tersimpan dalam value file_in berisi sebuah matriks. F.S.
+         * Matrix terisi sesuai dengan isi direktori file_in
+         */
         try {
             File file = new File(file_in);
             Scanner in = new Scanner(new FileReader(file));
@@ -142,15 +151,20 @@ public class Matrix {
     }
 
     public void printMatrixFromFile(String file_out) {
-		/* I.S. direktori yang tersimpan dalam value file_out kosong 
-		   F.S. direktori file_out terisi dengan matriks */
+        /*
+         * I.S. direktori yang tersimpan dalam value file_out kosong. F.S. direktori
+         * file_out terisi dengan matriks
+         */
         try {
             PrintWriter f = new PrintWriter(file_out);
             for (int i = StartPoint; i <= this.getNBrsEff(); i++) {
                 for (int j = StartPoint; j <= this.getNKolEff(); j++) {
                     f.print(this.getElement(i, j));
-                    if (j == this.getNKolEff()) f.println();
-                    else f.print(" ");
+                    if (j == this.getNKolEff()) {
+                        f.println();
+                    } else {
+                        f.print(" ");
+                    }
                 }
             }
             f.close();
@@ -162,9 +176,10 @@ public class Matrix {
 
     // Prosedur Operasi Baris Elementer
     public int maxAbsColumn(int j, int i) {
-        /* prekondisi : Matrix terdefinisi j masuk ke dalam NKolEff
-         * Mengembalikan indeks baris nilai maksimum dari kolom ke-j yang dimulai
-         * dari baris ke i*/
+        /*
+         * prekondisi : Matrix terdefinisi j masuk ke dalam NKolEff Mengembalikan indeks
+         * baris nilai maksimum dari kolom ke-j yang dimulai dari baris ke i
+         */
 
         int idxMax = i;
         for (int k = i; k <= this.getNBrsEff(); k++) {
@@ -189,9 +204,11 @@ public class Matrix {
     }
 
     public boolean cekKolNol(int i, int j) {
-        /* prekondisi matriks M terdefinisi, i dan j masuk dalam range NEFF
-         * mengembalikan nilai true jika seluruh kolom j mulai dari baris i sampai
-         * akhir sama dengan Nol dan false untuk sebaliknya*/
+        /*
+         * prekondisi matriks M terdefinisi, i dan j masuk dalam range NEFF
+         * mengembalikan nilai true jika seluruh kolom j mulai dari baris i sampai akhir
+         * sama dengan Nol dan false untuk sebaliknya
+         */
         // Kamus Lokal
         boolean isKolNol;
         int k;
@@ -210,8 +227,10 @@ public class Matrix {
     }
 
     public void matrixEselon() {
-		/* I.S. Matrix sembarang
-		   F.S. Matrix tereduksi menjadi matriks eselon dengan eliminasi Gauss */
+        /*
+         * I.S. Matrix sembarang F.S. Matrix tereduksi menjadi matriks eselon dengan
+         * eliminasi Gauss
+         */
 
         // Kamus Lokal
         int iMax, idxBrs, idxKol;
@@ -278,8 +297,8 @@ public class Matrix {
                             this.setElement(i, k, (this.getElement(i, k) - (currentElmt * this.getElement(j, k))));
                         }
                     }
-                    //TulisMATRIKS(*M);
-                    //printf("\n");
+                    // TulisMATRIKS(*M);
+                    // printf("\n");
                 }
             }
         }
@@ -322,8 +341,10 @@ public class Matrix {
     }
 
     public double[] sulihMundur() {
-	    /*  I.S : Matrix terdefinisi dan matriks adalah matriks eselon
-            F.S : Nilai dari matriks dimasukkan ke dalam array double */
+        /*
+         * I.S : Matrix terdefinisi dan matriks adalah matriks eselon F.S : Nilai dari
+         * matriks dimasukkan ke dalam array double
+         */
 
         // Kamus Lokal
         int j;
@@ -359,11 +380,13 @@ public class Matrix {
 
     // Predikat untuk determinasi jenis SPL
     public boolean isBarisNol(int i) {
-        /* Mengembalikan nilai true apabila baris ke-i pada matriks merupakan baris nol */
+        /*
+         * Mengembalikan nilai true apabila baris ke-i pada matriks merupakan baris nol
+         */
         int j = 1;
         while (j < this.getNKolEff() && this.getElement(i, j) == 0.0) {
             j++;
-        }// i == this.getNKolEff || i!=0.0
+        } // i == this.getNKolEff || i!=0.0
         if (this.getElement(i, j) == 0.0) {
             return true;
         } else {
@@ -375,13 +398,18 @@ public class Matrix {
         /* Menghitung kemunculan baris nol pada matriks */
         int cnt = 0;
         for (int i = 1; i <= this.getNBrsEff(); i++) {
-            if (this.isBarisNol(i)) cnt++;
+            if (this.isBarisNol(i)) {
+                cnt++;
+            }
         }
         return cnt;
     }
 
     public boolean isManySolution() {
-        /* Menghasilkan true apabila SPL memiliki solusi banyak, yaitu jika jumlahVariabel < jumlahPersamaan */
+        /*
+         * Menghasilkan true apabila SPL memiliki solusi banyak, yaitu jika
+         * jumlahVariabel < jumlahPersamaan
+         */
         int jumlahBarisNol = this.countBarisNol();
         int jumlahVariabel = this.getNKolEff() - 1;
         if (this.getNBrsEff() - jumlahBarisNol < jumlahVariabel) {
@@ -392,11 +420,14 @@ public class Matrix {
     }
 
     public boolean isBarisSiluman(int i) {
-        /* Menghasilkan true apabila baris ke-i merupakan baris "siluman", yaitu baris yang 000000X */
+        /*
+         * Menghasilkan true apabila baris ke-i merupakan baris "siluman", yaitu baris
+         * yang 000000X
+         */
         int j = 1;
         while (j < this.getNKolEff() && this.getElement(i, j) == 0.0) {
             j++;
-        }// i == this.getNKolEff || i!=0.0
+        } // i == this.getNKolEff || i!=0.0
         if (j == this.getNKolEff() && this.getElement(i, j) != 0.0) {
             return true;
         } else {
@@ -405,11 +436,14 @@ public class Matrix {
     }
 
     public boolean isNoSolution() {
-        /* Menghasilkan nilai true apabila SPL tidak memiliki solusi, yaitu ketika SPL memiliki baris "siluman" */
+        /*
+         * Menghasilkan nilai true apabila SPL tidak memiliki solusi, yaitu ketika SPL
+         * memiliki baris "siluman"
+         */
         int i = 1;
         while (i < this.getNBrsEff() && !(this.isBarisSiluman(i))) {
             i++;
-        }// i == NBrsEff || isBarisSiluman
+        } // i == NBrsEff || isBarisSiluman
         if (this.isBarisSiluman(i)) {
             return true;
         } else {
@@ -431,51 +465,53 @@ public class Matrix {
         while (startingI > 1 && isBarisNol(startingI)) {
             startingI--;
         } // startingI == 1 || !isBarisNol(startingI)
+        StringBuilder tmp = new StringBuilder();
         for (int i = startingI; i >= 1; i--) {
             // Cari indeks untuk set nilai
             int idxSet = 1;
             while ((this.getElement(i, idxSet) == 0 || stat[idxSet]) && idxSet < this.getNKolEff() - 1) {
                 idxSet++;
-            }// getElement(idxSet)!=0 && stat[idxSet]==false
+            } // getElement(idxSet)!=0 && stat[idxSet]==false
             stat[idxSet] = true;
 
             // Hitung nilai string yg akan diset
-            String tmp;
-            tmp = String.valueOf(this.getElement(i, this.getNKolEff()));
+            tmp.append(String.valueOf(this.getElement(i, this.getNKolEff())));
             for (int j = this.getNKolEff() - 1; j >= 1; j--) {
-                if (j == idxSet) continue;
-                else {
+                if (j == idxSet) {
+                    continue;
+                } else {
                     char operator;
                     double multiplier;
-                    String nilai;
+                    String nilai = ans[j];
 
                     multiplier = this.getElement(i, j);
-                    nilai = ans[j];
-                    if (nilai.length() != 1)
+                    if (nilai.length() != 1) {
                         nilai = "(" + nilai + ")";
+                    }
 
-                    if (multiplier == 0)
+                    if (multiplier == 0) {
                         continue;
-                    else if (multiplier < 0.0)
+                    } else if (multiplier < 0.0) {
                         operator = '+';
-                    else
+                    } else {
                         operator = '-';
+                    }
 
                     stat[j] = true;
 
                     if (Math.abs(multiplier) == 1.0) {
-                        tmp = tmp + " " + Character.toString(operator) + " " + nilai;
+                        tmp.append(String.format(" %c  %s", Character.toString(operator), nilai));
                     } else {
-                        tmp = tmp + " " + Character.toString(operator) + " " + String.valueOf(multiplier) + "*" + nilai;
+                        tmp.append(String.format(" %c %f * %s", Character.toString(operator), multiplier, nilai));
                     }
                 }
             }
 
-            if (this.getElement(i, idxSet) != 1.0)
-                tmp = "(" + tmp + ")" + "/" + String.valueOf(getElement(i, idxSet));
-
-            ans[idxSet] = tmp;
-
+            if (this.getElement(i, idxSet) != 1.0) {
+                tmp.append(String.format("(%s)/%f", tmp.toString(), getElement(i, idxSet)));
+            }
+            ans[idxSet] = tmp.toString();
+            tmp.setLength(0);
         }
         for (int j = 1; j < this.getNKolEff(); j++) {
             System.out.println("X" + String.valueOf(j) + " = " + ans[j]);
