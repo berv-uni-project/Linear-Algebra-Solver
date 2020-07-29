@@ -6,10 +6,14 @@ import java.io.InputStream;
 import java.io.PrintWriter;
 import java.util.Scanner;
 
+/**
+ * Menu Class,
+ * Handle menu in this application
+ */
 public class Menu {
 
-    Scanner scanner;
-    Matrix matrix;
+    private Scanner scanner;
+    private Matrix matrix;
 
     public Menu() {
         scanner = new Scanner(System.in);

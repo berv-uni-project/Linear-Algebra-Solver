@@ -1,10 +1,14 @@
 package linear.algebra.solver;
 
+/**
+ * Interface class
+ * for main class
+ */
 public class Interface {
 
-    public static void main(String args[]) {
+    public static void main(String[] args) {
         Menu menu = new Menu();
-        boolean finish = false;
+        boolean finish;
         int options;
         do {
             options = menu.showMainMenu();

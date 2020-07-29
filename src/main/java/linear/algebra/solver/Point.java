@@ -1,33 +1,43 @@
 package linear.algebra.solver;
-/*
-	ADT Point
-*/
 
+/**
+ * Point class
+ * Data structure
+ */
 public class Point {
-    public double x, y;
+    private double x, y;
 
-    // Konstruktor
+    /**
+     * Default constructor, create (0.0,0.0)
+     */
+    Point() {
+
+    }
+
+    /**
+     * Alternate constructor defined by (x,y)
+     * @param x x point in double
+     * @param y y point in double
+     */
     Point(double x, double y) {
         this.x = x;
         this.y = y;
     }
 
-    // Selector
+    /**
+     * X getter
+     * @return return X
+     */
     public double getX() {
         return this.x;
     }
 
-    // Setter
-    public void setX(double newX) {
-        this.x = newX;
-    }
-
+    /**
+     * Y Getter
+     * @return returning Y in double
+     */
     public double getY() {
         return this.y;
-    }
-
-    public void setY(double newY) {
-        this.y = newY;
     }
 
 }
