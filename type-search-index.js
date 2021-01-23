@@ -1,1 +1,0 @@
-typeSearchIndex = [{"l":"All Classes","url":"allclasses-index.html"},{"p":"linear.algebra.solver","l":"Interface"},{"p":"linear.algebra.solver","l":"Matrix"},{"p":"linear.algebra.solver","l":"Menu"},{"p":"linear.algebra.solver","l":"Point"}]
